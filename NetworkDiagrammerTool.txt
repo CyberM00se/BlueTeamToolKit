@@ -1,0 +1,13 @@
+Automated Network Mapper
+
+Purpose: This application would perform a nmap scan on a given network and compile the data into a visualized network map. 
+This would look similar to planttext.com. This application would be contained in the application.
+
+
+Software:
+
+Python
+Go
+https://gitlab.com/graphviz/graphviz/
+
+planttext.com
