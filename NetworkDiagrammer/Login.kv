@@ -1,0 +1,36 @@
+WindowManager:
+	MainWindow:
+	SecondWindow:
+
+<MainWindow>:
+	# How we call it moving in between screens
+	name: "main"
+
+	GridLayout:
+		cols: 1
+
+		GridLayout:
+			cols: 2
+
+			Label:
+				text: "Password: "
+
+			TextInput:
+				id: passw
+				multiline: False
+
+		Button:
+			text: "Submit"
+			# set the current window to the next one with the name
+			on_release: 
+				app.root.current =  "second" if passw.text == "sec440" else "main"
+				root.manager.transition.direction = "left"
+
+<SecondWindow>:
+	name: "second"
+
+	Button:
+		text: "Go Back"
+		on_release: 
+			app.root.current = "main"
+			root.manager.transition.direction = "right"
