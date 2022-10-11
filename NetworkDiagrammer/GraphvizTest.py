@@ -7,6 +7,7 @@ with Diagram("My Diagram: Droplets", show=False, filename="my-diagram", directio
     with Cluster("DigitalOcean"):
         droplet1 = Droplet("My first droplet")
         droplet2 = Droplet("My second droplet")
+        droplet2 = Droplet("YO YO ITS SCANLAN")
 
     db = DbaasPrimary("My database")
     
