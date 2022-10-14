@@ -1,0 +1,21 @@
+WindowManager:
+	MainWindow:
+	SecondWindow:
+
+<MainWindow>:
+	# How we call it moving in between screens
+	name: "main"
+
+	FloatLayout:
+        GridLayout:
+            Label:
+                text: "Testing"
+
+<SecondWindow>:
+	name: "second"
+
+	Button:
+		text: "Go Back"
+		on_release: 
+			app.root.current = "main"
+			root.manager.transition.direction = "right"
