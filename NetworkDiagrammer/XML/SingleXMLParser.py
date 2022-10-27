@@ -81,9 +81,10 @@ print('-------------------------------------------------------------------------
 #--------------START of Image Creator-----------------------------------------------
 
 #Variables
-PaddingSize = 30
+PaddingSizeX = 30
+PaddingSizeY = 30
 # (TODO) - Incorperate numWksPerRow into this calculation instead of just raw number
-BaseImageSizeX = (150 * numOfScannedIps) + (PaddingSize * (numOfScannedIps + 1))
+BaseImageSizeX = (150 * numOfScannedIps) + (PaddingSizeX * (numOfScannedIps + 1))
 BaseImageSizeY = 500
 Image_Filename = "TestImage1.png"
 
@@ -103,30 +104,32 @@ Canvas = Image.new('RGB', (BaseImageSizeX, BaseImageSizeY), color = 'white')
 Canvas.save(Image_Filename)
 
 count = 0
-rowCount = 0
-startX = 0 + PaddingSize
-startY = 0 + PaddingSize
+inRowCount = 0
+numCurrentRows = 1
+startX = 0 + PaddingSizeX
+startY = 0 + PaddingSizeY
 while count < numOfScannedIps:
-	if startX == (0 + PaddingSize):
-		midX = ((iconWidth / 2))
-		midY = (startY + 15)
+	if startX == (0 + PaddingSizeX):
+		midX = (((iconWidth + (PaddingSizeX * 2)) / 2))
+		midY = (startY + iconHeight + PaddingSizeY)
 	else:
-		midX = (startX - (iconWidth / 2))
-		midY = (startY + 15)
+		midX = (startX - (((iconWidth + (PaddingSizeX * 2)) / 2) + PaddingSizeX))
+		midY = (startY + iconHeight + PaddingSizeY)
 	#This if statment checks to see how many icons have been placed in a row then starts a new row
-	if rowCount >= numWksPerRow:
-		startX = 0 + PaddingSize
-		startY = 0 + iconHeight + PaddingSize
-		rowCount = 0
+	if inRowCount >= numWksPerRow:
+		numCurrentRows = numCurrentRows + 1
+		startX = PaddingSizeX
+		startY = (iconHeight * numCurrentRows) + PaddingSizeY
+		inRowCount = 0
 	# This pastes the workstaton image on the white canvas.
 	# (TODO) - Potentially add the correct icon of the system to the image, this would just be an if statement comparing the list
 	Canvas.paste(workstationIcon, (startX, startY), workstationIcon)
 	# (TODO) - Add the IP address of the workstation to the bottom of the image
-	d = ImageDraw.Draw(Canvas)
-	d.text((midX, midY), "Text Here", fill=(255,0,0))
+	wksTextBox = ImageDraw.Draw(Canvas)
+	wksTextBox.text((midX, midY), "Workstation", fill=(0,0,0))
 	#Increasing the x position of the icon
-	startX = startX + 150 + PaddingSize
-	rowCount = rowCount + 1
+	startX = startX + 150 + PaddingSizeX
+	inRowCount = inRowCount + 1
 	print('Workstation Pos : ', startX, startY)
 	count = count + 1
 
