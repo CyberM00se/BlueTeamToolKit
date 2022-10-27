@@ -1,0 +1,16 @@
+@startuml
+nwdiag {
+  network home {
+      address = "192.x.x.x/24"
+
+      venus [address = "192.x.x.1"];
+      mars [address = "192.x.x.2"];
+  }
+  network aa {
+      address = "192.9.9.9/24"
+
+      aa [address = "192.x.x.1"];
+      marbbs [address = "192.x.x.2"];
+  }
+}
+@enduml
