@@ -114,6 +114,7 @@ while count < numOfScannedIps:
 		midY = (startY + iconHeight + PaddingSizeY)
 	else:
 		midX = (startX - (((iconWidth + (PaddingSizeX * 2)) / 2) + PaddingSizeX))
+		#midX = ((startX + iconWidth + (PaddingSizeX * 2)) / 2)
 		midY = (startY + iconHeight + PaddingSizeY)
 	#This if statment checks to see how many icons have been placed in a row then starts a new row
 	if inRowCount >= numWksPerRow:
