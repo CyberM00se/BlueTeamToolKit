@@ -82,14 +82,17 @@ print('-------------------------------------------------------------------------
 
 #Variables
 PaddingSizeX = 30
-PaddingSizeY = 30
-# (TODO) - Incorperate numWksPerRow into this calculation instead of just raw number
-BaseImageSizeX = (150 * numOfScannedIps) + (PaddingSizeX * (numOfScannedIps + 1))
-BaseImageSizeY = 500
-Image_Filename = "TestImage1.png"
+PaddingSizeY = 15
 
 # (TODO) - To calculate number of wks per row use % to make sure there is no remainder, if there is increase the amt per row by 1
 numWksPerRow = 6
+
+# (TODO) - Incorperate numWksPerRow into this calculation instead of just raw number
+BaseImageSizeX = (150 * numWksPerRow) + (PaddingSizeX * (numOfScannedIps + 1))
+BaseImageSizeY = 500
+Image_Filename = "TestImage1.png"
+
+
 
 # (TODO) - Find the function to get these values from the image directly for modularity sake
 iconWidth = 150
@@ -108,26 +111,27 @@ inRowCount = 0
 numCurrentRows = 1
 startX = 0 + PaddingSizeX
 startY = 0 + PaddingSizeY
+
 while count < numOfScannedIps:
 	if startX == (0 + PaddingSizeX):
-		midX = (((iconWidth + (PaddingSizeX * 2)) / 2))
+		midX = (((iconWidth + (PaddingSizeX * 2)) / 2) + (PaddingSizeX * 2))
 		midY = (startY + iconHeight + PaddingSizeY)
 	else:
-		midX = (startX - (((iconWidth + (PaddingSizeX * 2)) / 2) + PaddingSizeX))
-		#midX = ((startX + iconWidth + (PaddingSizeX * 2)) / 2)
-		midY = (startY + iconHeight + PaddingSizeY)
+		midX = (startX - (((iconWidth + (PaddingSizeX * 2)) / 2) + (PaddingSizeX * 2)))
+		midY = (startY + iconHeight + (PaddingSizeY * 2))
+
 	#This if statment checks to see how many icons have been placed in a row then starts a new row
 	if inRowCount >= numWksPerRow:
 		numCurrentRows = numCurrentRows + 1
 		startX = PaddingSizeX
-		startY = (iconHeight * numCurrentRows) + PaddingSizeY
+		startY = (iconHeight * numCurrentRows)
 		inRowCount = 0
 	# This pastes the workstaton image on the white canvas.
 	# (TODO) - Potentially add the correct icon of the system to the image, this would just be an if statement comparing the list
 	Canvas.paste(workstationIcon, (startX, startY), workstationIcon)
-	# (TODO) - Add the IP address of the workstation to the bottom of the image
+	# Add the IP address of the workstation to the bottom of the image
 	wksTextBox = ImageDraw.Draw(Canvas)
-	wksTextBox.text((midX, midY), "Workstation", fill=(0,0,0))
+	wksTextBox.text((midX, midY), ScannedIPList[count], fill=(0,0,0))
 	#Increasing the x position of the icon
 	startX = startX + 150 + PaddingSizeX
 	inRowCount = inRowCount + 1
