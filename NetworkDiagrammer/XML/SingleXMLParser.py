@@ -82,12 +82,10 @@ print('-------------------------------------------------------------------------
 
 #Variables
 PaddingSizeX = 40
-PaddingSizeY = 15
+PaddingSizeY = 30
 
-# (TODO) - To calculate number of wks per row use % to make sure there is no remainder, if there is increase the amt per row by 1
-numWksPerRow = 6
+numWksPerRow = 5
 
-# (TODO) - Incorperate numWksPerRow into this calculation instead of just raw number
 BaseImageSizeX = (150 * numWksPerRow) + (PaddingSizeX * (numOfScannedIps + 1))
 BaseImageSizeY = 500
 Image_Filename = "TestImage1.png"
@@ -111,17 +109,20 @@ numCurrentRows = 1
 startX = 0 + PaddingSizeX
 startY = 0 + PaddingSizeY
 
+print('Start Y = ', startY)
+
 while count < numOfScannedIps:
 
 	
 	#This if statment checks to see how many icons have been placed in a row then starts a new row
 	if inRowCount >= numWksPerRow:
-		numCurrentRows = numCurrentRows + 1
 		startX = PaddingSizeX
-		startY = (iconHeight * numCurrentRows)
+		startY = (iconHeight * numCurrentRows) + ( PaddingSizeY * numCurrentRows)
+		numCurrentRows = numCurrentRows + 1
 		inRowCount = 0
 		print('###########################')
 		print('CREATING NEW ROW')
+		print('New Y = ', startY)
 		print('###########################')
 
 	# Add the IP address of the workstation to the bottom of the image
