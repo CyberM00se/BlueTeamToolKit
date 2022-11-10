@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
 import math
+import re
 from PIL import Image, ImageDraw, ImageFilter
 
 #-----------------------------------------------------------
@@ -8,6 +9,7 @@ from PIL import Image, ImageDraw, ImageFilter
 raw_Ip_List = []
 ScannedIPList = []
 numOfScannedIps = 0
+commandIP = ""
 #-----------------------------------------------------------
 
 #This function is responsible for copying the xml informatin to a data frame
@@ -46,6 +48,25 @@ def port_intr_docs(xml_doc):
 
 		yield doc_dict
 
+def collectIpInfo(xml_doc):
+
+	attr = xml_doc.attrib
+
+	for xml in xml_doc.iter('nmaprun'):
+		# Copy the element to the datafram
+
+		# Copy the element to the datafram
+		doc_dict = attr.copy()
+
+		# update the dataframe
+		doc_dict.update(xml.attrib)
+
+		# set the dataframe data to the text of the xml attribute
+		doc_dict['data'] = xml.text
+
+		yield doc_dict
+
+
 #This function takes in a list with duplicates, removes the duplicates, and sets the results to a new list
 def clearDuplicates(dupList, newList):
 	newList = [*set(dupList), 1]
@@ -58,6 +79,8 @@ Host_df = pd.DataFrame(list(host_intr_docs(etree.getroot())))
 
 Port_df = pd.DataFrame(list(port_intr_docs(etree.getroot())))
 
+nmaprun_df = pd.DataFrame(list(collectIpInfo(etree.getroot())))
+
 #This loop can get the contents of a column. In this case a target
 for item in Host_df['addr']:
 	#print(item)
@@ -65,6 +88,16 @@ for item in Host_df['addr']:
 
 ScannedIPList = [*set(raw_Ip_List)]
 ScannedIPList.sort()
+
+for item in nmaprun_df['args']:
+	#print(item)
+	commandIP = item
+
+print('#################################################################')
+print(commandIP)
+print(re.search("\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b", commandIP))
+print('#################################################################')
+
 
 #print('--------------------------------------------------------------------------')
 #print(Host_df)
