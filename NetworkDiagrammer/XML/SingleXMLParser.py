@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
+import math
 from PIL import Image, ImageDraw, ImageFilter
 
 #-----------------------------------------------------------
@@ -83,29 +84,42 @@ print('-------------------------------------------------------------------------
 #Variables
 PaddingSizeX = 40
 PaddingSizeY = 30
+ipTextPadding = 10
+
+# (TODO) - Find the function to get these values from the image directly for modularity sake
+#Images
+workstationIcon = Image.open('Images/Workstation.png')
+
+#iconWidth = 150, iconHeight = 80
+iconWidth, iconHeight = workstationIcon.size
 
 numWksPerRow = 5
 
-BaseImageSizeX = (150 * numWksPerRow) + (PaddingSizeX * (numOfScannedIps + 1))
-BaseImageSizeY = 500
+BaseImageSizeX = (150 * numWksPerRow) + (PaddingSizeX * (numWksPerRow + 1))
+
+totalRows = math.ceil(numOfScannedIps / numWksPerRow)
+
+BaseImageSizeY = (80 * totalRows) + (PaddingSizeY * (totalRows + 2))
 Image_Filename = "TestImage1.png"
 
-
-# (TODO) - Find the function to get these values from the image directly for modularity sake
-iconWidth = 150
-iconHeight = 80
-
-#Images
-# Image is 150x80
-workstationIcon = Image.open('Images/Workstation.png')
 
 #Create the base image
 Canvas = Image.new('RGB', (BaseImageSizeX, BaseImageSizeY), color = 'white')
 Canvas.save(Image_Filename)
 
+#Create Bounding Box
+boundingWidth = BaseImageSizeX - (PaddingSizeX / 2)
+boundingHeight = BaseImageSizeY - (PaddingSizeX / 2)
+
+boundingBox = ImageDraw.Draw(Canvas)
+boundingBox.rectangle(((PaddingSizeX / 2), (PaddingSizeY / 2), boundingWidth, boundingHeight), fill=(255,255,255), outline ="black", width=3)
+
+
+
 count = 0
 inRowCount = 0
 numCurrentRows = 1
+numCurrentPad = 2
 startX = 0 + PaddingSizeX
 startY = 0 + PaddingSizeY
 
@@ -117,9 +131,10 @@ while count < numOfScannedIps:
 	#This if statment checks to see how many icons have been placed in a row then starts a new row
 	if inRowCount >= numWksPerRow:
 		startX = PaddingSizeX
-		startY = (iconHeight * numCurrentRows) + ( PaddingSizeY * numCurrentRows)
-		numCurrentRows = numCurrentRows + 1
+		startY = (iconHeight * numCurrentRows) + (PaddingSizeY * numCurrentPad)
 		inRowCount = 0
+		numCurrentRows = numCurrentRows + 1
+		numCurrentPad = numCurrentPad + 1
 		print('###########################')
 		print('CREATING NEW ROW')
 		print('New Y = ', startY)
@@ -133,7 +148,7 @@ while count < numOfScannedIps:
 	
 	#Setting the midpoints for the text
 	midX = (((iconWidth - txtSize) / 2) + startX)
-	midY = (startY + iconHeight + 5)
+	midY = (startY + iconHeight + ipTextPadding)
 	
 	# (TODO) - Potentially add the correct icon of the system to the image, this would just be an if statement comparing the list
 
@@ -154,14 +169,3 @@ while count < numOfScannedIps:
 
 #save the file
 Canvas.save(Image_Filename)
-
-
-
-#---Notes--
-
-#if startX == (0 + PaddingSizeX):
-	#	midX = (((iconWidth + (PaddingSizeX * 2)) / 2) + (PaddingSizeX * 2))
-	#	midY = (startY + iconHeight + PaddingSizeY)
-	#else:
-	#	midX = (startX - (((iconWidth + (PaddingSizeX * 2)) / 2) + (PaddingSizeX * 2)))
-	#	midY = (startY + iconHeight + (PaddingSizeY * 2))
