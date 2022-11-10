@@ -93,10 +93,19 @@ for item in nmaprun_df['args']:
 	#print(item)
 	commandIP = item
 
-print('#################################################################')
-print(commandIP)
-print(re.search("\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b", commandIP))
-print('#################################################################')
+def getIpFromString(string):
+    # split by space and converting
+    # string to list and
+    lis = list(string.split(" "))
+    
+    # length of list
+    length = len(lis)
+     
+    # returning last element in list
+    return lis[length-1]
+
+commandIP = "IP Scanned: " + getIpFromString(commandIP)
+
 
 
 #print('--------------------------------------------------------------------------')
@@ -126,7 +135,7 @@ workstationIcon = Image.open('Images/Workstation.png')
 #iconWidth = 150, iconHeight = 80
 iconWidth, iconHeight = workstationIcon.size
 
-numWksPerRow = 5
+numWksPerRow = 3
 
 BaseImageSizeX = (150 * numWksPerRow) + (PaddingSizeX * (numWksPerRow + 1))
 
@@ -157,6 +166,16 @@ startX = 0 + PaddingSizeX
 startY = 0 + PaddingSizeY
 
 print('Start Y = ', startY)
+
+#IP Range Being Scanned
+ipRangeTxtBox = ImageDraw.Draw(Canvas)
+ipRangetxtSize = ipRangeTxtBox.textlength(commandIP)
+
+ipRangemidX = (((BaseImageSizeX - ipRangetxtSize) / 2))
+ipRangemidY = (PaddingSizeY / 2)
+
+ipRangeTxtBox.text(((ipRangemidX), (ipRangemidY)), commandIP, fill=(0,0,0), align = "center")
+
 
 while count < numOfScannedIps:
 
