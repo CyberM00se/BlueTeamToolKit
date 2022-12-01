@@ -1,0 +1,35 @@
+WindowManager:
+	MainWindow:
+	SecondWindow:
+<MainWindow>:
+	name: "main"
+	GridLayout:
+		cols: 1
+		GridLayout:
+			Button:
+				text: "Show Popup"
+				on_release:
+					# root calls the class in the <> and can run functions in it
+					root.btn()
+			CheckBox:
+				text: "My Textbox"
+				size_hint: 0.6, 0.2
+				pos_hint: {"x":0.2, "top":1}
+
+<SecondWindow>:
+	name: "second"
+	Button:
+		text: "Go Back"
+		on_release: 
+			app.root.current = "main"
+			root.manager.transition.direction = "right"
+<P>: 
+	Label:
+		text: "This is my PopUp!"
+		size_hint: 0.6, 0.2
+		pos_hint: {"x":0.2, "top":1}
+
+	Button:
+		text: "Close"
+		size_hint: 0.8, 0.2
+		pos_hint: {"x":0.1, "y":0.1}
