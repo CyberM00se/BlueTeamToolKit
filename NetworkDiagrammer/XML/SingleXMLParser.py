@@ -135,7 +135,7 @@ workstationIcon = Image.open('Images/Workstation.png')
 #iconWidth = 150, iconHeight = 80
 iconWidth, iconHeight = workstationIcon.size
 
-numWksPerRow = 3
+numWksPerRow = 5
 
 BaseImageSizeX = (150 * numWksPerRow) + (PaddingSizeX * (numWksPerRow + 1))
 
