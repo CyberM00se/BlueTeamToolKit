@@ -1,6 +1,7 @@
 import kivy
 import scannerScript
 import os
+import time
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
@@ -23,12 +24,16 @@ Window.size = (1920,1080)
 class MainWindow(Screen):
 	
 	ipToScan = ObjectProperty(None)
+	scanImage = ObjectProperty(None)
 
 	def executeScan(self):
 		ipToScan = self.ids.inputIpField.text
 		print("Executing scan of:  " + ipToScan)
-		os.system('python scannerScript.py ' + ipToScan)
+		#os.system('python scannerScript.py ' + ipToScan)
 		print("-------DONE-----")
+		time.sleep(5)
+		self.ids.scanImage.source = 'TestImage1.png'
+
 	 
 
 class SecondWindow(Screen):
