@@ -1,13 +1,32 @@
+import kivy
+from kivy.app import App
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.widget import Widget
+from kivy.uix.button import Button
+from kivy.properties import ObjectProperty
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
-from kivymd.app import MDApp
 
-class MainApp(MDApp):
+# In this script we import a builder that will pull the kv file no matter the name
 
+class MainWindow(Screen):
+	pass 
+
+class SecondWindow(Screen):
+	pass 
+
+class WindowManager(ScreenManager):
+	pass 
+
+kv = Builder.load_file("DiagramWindow.kv")
+
+class MyMainApp(App):
 	def build(self):
-		self.theme_cls.theme_style = "Dark"
-		self.theme_cls.primary_palette = "DeepPurple"
+		return kv
 
-		return Builder.load_file('DiagramTool.kv')
-
-
-MainApp().run()
+if __name__ == "__main__":
+	MyMainApp().run()
+	
