@@ -1,3 +1,4 @@
+#: import utils kivy.utils
 WindowManager:
     MainWindow:
     SecondWindow:
@@ -7,68 +8,235 @@ WindowManager:
 
 <MainWindow>:
     id: main_win
-    orientation: 'vertical'
+    orientation: 'Horizontal'
     canvas.before:
         Color:
             rgba: (1,1,1, 1)
         Rectangle:
             size: self.size
             pos: self.pos
+    #holds the windows
     BoxLayout:
-        id: header
-        size_hint_y: None
-        height: 40
+        id: BoxContainer
+        orientation: 'horizontal'
         canvas.before:
-            Color:
-                rgba: (.06,.45,.45, 1)
             Rectangle:
                 size: self.size
                 pos: self.pos
-        Label:
-            text: 'TEMPORARY TEXT'
-            size_hint_x: .9
-            bold: True
-            color: (1,1,1,1)
-        FlatButton:
-            id: loggedin_user
-            text: 'nameofuser'
-            color: (1,1,1,1)
-    BoxLayout:
-        id: current
-        size_hint_y: None
-        height: 50
-        canvas.before:
-            Color:
-                rgba: (1,1,1, 1)
-            Rectangle:
-                size: self.size
-                pos: self.pos
-        Button:
-            text: 'Current Item:'
-            background_normal: ''
-            background_color: (.06, 0.32, .32, 1)
-        Button:
-            id: cur_product
-            text: 'Default Product'
-            background_normal: ''
-            background_color: (.06, 0.4, .4, 1)
-        Button:
-            id: cur_price
-            text: '0.00'
-            background_normal: ''
-            background_color: (.06, 0.65, .65, 1)
-    
-    BoxLayout:
+        ##-----LEFT PANEL---
         BoxLayout:
-            id: product_details
-            orientation: "vertical"
-            size_hint_x: .8
-                Button:
-                    id: caaa
-                    text: 'TESTa'
-                    background_color: (.06, 0.65, .65, 1)
-
-        BoxLayout:
-            id: privew
-            orientation: "vertical"
+            id: leftPanel
+            orientation: 'vertical'
             size_hint_x: .2
+            canvas.before:
+                Color:
+                    rgb: utils.get_color_from_hex('303952')
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            ##BTTK Logo / Title
+            BoxLayout:
+                id: logoBox
+                size_hint_y: .08
+                canvas.before:
+                    Color:
+                        rgb: utils.get_color_from_hex('2B6499')
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    #font_name: 'C:/Users/noahb/Desktop/Github/BlueTeamToolKit/NetworkDiagrammer/fonts/coolvetica.otf'
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    text: '  BTTK'
+                    font_size: 44
+            BoxLayout:
+                id: ToolSelectBox
+                orientation: 'vertical'
+                size_hint_y: .8
+                canvas.before:
+                    Color:
+                        rgb: utils.get_color_from_hex('303952')
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Button: 
+                    id: tool1
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Home'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool2
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Network Diagrammer'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool3
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Green Plan'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool4
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Red Plan'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool5
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Persistance Removal'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool6
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Auto-Hardening'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool1
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Excternal Software'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool2
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Quick Commands'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                Button: 
+                    id: tool3
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                  
+                    font_size: 25
+                    text: '      Report Writing'
+                    background_normal: ''
+                    background_color: utils.get_color_from_hex('303952')
+                
+        ##-----RIGHT PANEL---
+        BoxLayout:
+            id: rightPanel
+            orientation: 'vertical'
+            size_hint_x: .7
+            canvas.before:
+                Color:
+                    rgba: (1,1,1, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            BoxLayout:
+                id: tool_title
+                size_hint_y: .08
+                canvas.before:
+                    Color:
+                        rgb: utils.get_color_from_hex('3D8BD3')
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text_size: self.size
+                    valign: 'middle'
+                    halign: 'left'                   
+                    text: '    Network Diagrammer Tool'
+                    font_size: 33
+            BoxLayout:
+                id: ToolSelectBox
+                orientation: 'vertical'
+                size_hint_y: .8
+                padding: 40
+                spacing: 40
+                canvas.before:
+                    Color:
+                        rgba: (1,1,1, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                BoxLayout:
+                    id: NmapConfigureBox                   
+                    size_hint_y: .1
+                    canvas.before:
+                        Color:
+                            rgb: utils.get_color_from_hex('90EE90')
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    TextInput:
+                        id: inputIpField
+                        text: 'input ip address'
+                        size_hint_x: .3
+                        text_size: self.size
+                        valign: 'middle'
+                        halign: 'left' 
+                        font_size: 25
+                        multiline: False
+                        #size_hint_y: .2
+                        on_text:
+                            if len(self.text.strip()) >= 16: self.readonly = True
+                    Label:
+                        text_size: self.size
+                        size_hint_x: .1
+                        valign: 'middle'
+                        halign: 'left'                   
+                        text: '    FLAGS'
+                        canvas.before:
+                            Color:
+                                rgba: utils.get_color_from_hex('AF4994')
+                        font_size: 33
+                    CheckBox:
+                        background_color: utils.get_color_from_hex('AF4994')
+                        background_checkbox_normal: 'box.png'
+                        background_checkbox_down: 'box2.png'
+                        #on_active: root.checkbox_click(self, self.active)                   
+                        size_hint_x: .3
+                    Button:
+                        text_size: self.size
+                        size_hint_x: .3
+                        valign: 'middle'
+                        halign: 'left'                   
+                        text: '    RUN'
+                        font_size: 33
+                        on_release:
+                            root.executeScan()            
+                BoxLayout:
+                    id: ImageOutput                   
+                    size_hint_y: .9
+                    canvas.before:
+                        Color:
+                            rgb: utils.get_color_from_hex('FFB6C1')
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    Image:
+                        id: scanImage
+                        source: 'XML/TestImage1.png'
+        
